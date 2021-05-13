@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Régions, départements et communes</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Liste des régions, départements et communes</h1>
+        
+        <section id="step-one">
+            <form action="">
+                <fieldset>
+                    <legend>Sans filtre</legend>
+                
+                    <div class="form-group">
+                        <label for="regions">Régions</label>
+                        <select name="regions" id="regions">
+                            <option v-for="region in regions" value="">{{ region.nom }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="departements">Départements</label>
+                        <select name="departements" id="departements">
+                            <option v-for="departement in stepOne.departements" value="">{{ departement.nom }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cities">Communes</label>
+                        <select name="cities" id="cities">
+                            <option v-for="city in stepOne.cities" value="">{{ city.nom }}</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+        <section id="step-two">
+            <form>
+                <fieldset>
+                    <legend>Filtre par régions et départements</legend>
+                    <div class="form-group">
+                        <label for="regions2">Régions</label>
+                        <select v-model="selectedRegion" v-on:change="updateDepartements" id="regions2">
+                            <option v-for="region in regions" v-bind:value="region.code">{{ region.nom }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="departements2">Départements</label>
+                        <select v-model="selectedDepartement" v-on:change="updateCities" id="departements2">
+                            <option v-bind:value="departement.code" v-for="departement in stepTwo.departements">{{ departement.nom }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cities2">Communes</label>
+                        <select id="cities2" v-model="selectedCity">
+                            <option v-bind:value="city.code" v-for="city in stepTwo.cities">{{ city.nom }}</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
